@@ -66,7 +66,7 @@ def erase(a,b,c,d):
 def save(d):
     u=input("Username/e-mail/head/id: ")
     while True:
-        reply,a,b=input("Self-generate secure password? ").lower(),0,0
+        reply,a,b=input("Generate secure password? ").lower(),0,0
         if reply in yes:
             while True:
                 try:

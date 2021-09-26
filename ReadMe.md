@@ -9,6 +9,6 @@ All operations are conducted via ***GUI*** using Python *tkinter* module to make
 
 ```
 Requirements
-Python3
-Python tkinter module
-'''
+Python 3
+Python module tkinter
+```

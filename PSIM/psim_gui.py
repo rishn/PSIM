@@ -41,7 +41,7 @@ def entry(f,s,i,c):
     return e
 def button(f,l,se,px,rw):
     for i in l:
-        Button(f,text=i[0],width=10,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE').grid(row=rw,column=l.index(i),sticky=W) if rw!='' else Button(f,text=i[0],width=25,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE').pack(side=se,padx=px) if se!=0 and px!=0 else Button(f,text=i[0],width=25,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE').pack()
+        Button(f,text=i[0],width=10,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE',activeforeground=i[2]).grid(row=rw,column=l.index(i),sticky=W) if rw!='' else Button(f,text=i[0],width=25,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE',activeforeground=i[2]).pack(side=se,padx=px) if se!=0 and px!=0 else Button(f,text=i[0],width=25,command=i[1],font=('Copperplate Gothic Light',10,'bold'),bg=i[2],fg='WHITE',activeforeground=i[2]).pack()
 def read():
     with open(r'Sensitive/2.dat','rb') as file:
         try:
@@ -61,7 +61,7 @@ def check(b,c,r,r0):
     if b==c and b!='':
         write(b,r'Sensitive/1.dat')
         f4=fr(r)
-        Button(f4,text='Exit And Restart Program',width=25,command=lambda:exitm(r,r0),bg='BLUE',fg='WHITE',font=('Copperplate Gothic Light',10,'bold')).pack()
+        Button(f4,text='Exit And Restart Program',width=25,command=lambda:exitm(r,r0),bg='BLUE',fg='WHITE',activeforeground='BLUE',font=('Copperplate Gothic Light',10,'bold')).pack()
     else:
         Label(f3,text='Invalid key',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=1,sticky=W)
 def generate1():
@@ -74,7 +74,7 @@ def generate2(n,r):
     try:
         p=''.join([random.choice(string.digits+string.ascii_letters+string.punctuation) for i in range(int(n))])
         Label(f3,text=p,bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=1,sticky=W)
-        Button(f4,text='Copy Text',width=10,bg='RED',fg='WHITE',command=lambda:copy(p,r),font=('Copperplate Gothic Light',10,'bold')).grid(row=1,column=1,sticky=W)
+        Button(f4,text='Copy Text',width=10,bg='RED',fg='WHITE',activeforeground='RED',command=lambda:copy(p,r),font=('Copperplate Gothic Light',10,'bold')).grid(row=1,column=1,sticky=W)
     except TypeError as e:
         Label(f3,text='Invalid length',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=1,sticky=W)
 def starter(f1,f2,f3,r,r0,key):
@@ -229,8 +229,8 @@ if key=='':
     f1,f2=fr(r1),fr(r1)
     Label(f1,text='No clearance key saved',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
     nkey,ckey=entry(f1,'New clearance key:',1,'*'),entry(f1,'New clearance key:',2,'*')
-    Button(f2,text='Submit',width=25,command=lambda:check(nkey.get(),ckey.get(),r1,r0),bg='BLUE',fg='WHITE',font=('Copperplate Gothic Light',10,'bold')).pack()
+    Button(f2,text='Submit',width=25,command=lambda:check(nkey.get(),ckey.get(),r1,r0),bg='BLUE',fg='WHITE',activeforeground='BLUE',font=('Copperplate Gothic Light',10,'bold')).pack()
 else:
     f1,f2,f3,a=fr(r1),fr(r1),fr(r1),0
     e=entry(f1,'Clearance key:',0,'*')
-    Button(f2,text='Submit',width=25,command=lambda:starter(f1,f2,f3,r1,r0,key),bg='BLUE',fg='WHITE',font=('Copperplate Gothic Light',10,'bold')).pack()
+    Button(f2,text='Submit',width=25,command=lambda:starter(f1,f2,f3,r1,r0,key),bg='BLUE',fg='WHITE',activeforeground='BLUE',font=('Copperplate Gothic Light',10,'bold')).pack()

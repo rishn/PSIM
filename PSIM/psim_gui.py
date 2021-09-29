@@ -4,7 +4,8 @@ import sys
 import os
 import random
 import string
-def win():
+def win(b):
+    global img
     r0=Tk()
     r0.title('PSIM')
     f=Frame(r0,bg='BLACK')
@@ -20,8 +21,12 @@ def win():
     def mw(event):
         c.yview_scroll(-1*int((event.delta/120)),'units')
     c.bind_all('<MouseWheel>',mw)
+    if b==0:
+        img=PhotoImage(file='Palm Print.png')
+        Label(c,image=img).place(x=0,y=0)
     r=Frame(c,bg='BLACK')
     c.create_window((0,0),window=r,anchor='s')
+    Label(r,image=img).place(x=0,y=0) if b==0 else print('',end='')
     return r,r0
 def scroll(f):
     s1=Scrollbar(f,orient=VERTICAL)
@@ -64,7 +69,7 @@ def check(b,c,r,r0):
     else:
         Label(f3,text='Invalid key',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=1,sticky=W)
 def generate1():
-    r3,r0=win()
+    r3,r0=win(1)
     f1,f2=fr(r3),fr(r3)
     e=entry(f1,'Passowrd length:',0,'')
     button(f2,[('Submit',lambda:generate2(e.get(),r3),'BLUE'),('Go Back',lambda:[r3.destroy(),r0.destroy()],'BLUE')],0,0,'')
@@ -123,12 +128,12 @@ def view2(c,d,r):
     except KeyError as e:
         print('',end='')    
 def add1(l):
-    r2,r0=win()
+    r2,r0=win(1)
     f1,f2=fr(r2),fr(r2)
     e=entry(f1,'New sub-group name:',0,'')
     button(f2,[('Submit',lambda:add3(l,e.get(),r2),'BLUE'),('Go Back',lambda:[r2.destroy(),r0.destroy()],'BLUE')],0,0,'')
 def add2(l,c):
-    r2,r0=win()
+    r2,r0=win(1)
     f1,f2=fr(r2),fr(r2)
     d=[['New account name:',''],['Username:',''],['Password:','']]
     for i in range(len(d)):
@@ -156,7 +161,7 @@ def delete1(l,c):
     b=read()
     try:
         b[c]=b[c]
-        r2,r0=win()
+        r2,r0=win(1)
         f1,f2=fr(r2),fr(r2)
         Label(f1,text=f'Delete sub-group {c}?',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
         button(f2,[('Yes',lambda:[delete3(l,b,c),r2.destroy(),r0.destroy()],'RED'),('No',lambda:[r2.destroy(),r0.destroy()],'BLUE')],LEFT,10,'')
@@ -166,7 +171,7 @@ def delete2(l,c,d):
     b=read()
     try:
         b[c][d]=b[c][d]
-        r2,r0=win()
+        r2,r0=win(1)
         f1,f2=fr(r2),fr(r2)
         Label(f1,text=f'Delete account {d} from sub-group {c}?',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
         button(f2,[('Yes',lambda:[delete4(l,b,c,d),r2.destroy(),r0.destroy()],'RED'),('No',lambda:[r2.destroy(),r0.destroy()],'BLUE')],LEFT,10,'')
@@ -184,7 +189,7 @@ def update1(l,c):
     b=read()
     try:
         b[c]=b[c]
-        r2,r0=win()
+        r2,r0=win(1)
         f1,f2=fr(r2),fr(r2)
         e=entry(f1,'New sub-group name:',0,'')
         button(f2,[('Submit',lambda:update3(l,b,c,e.get()),'BLUE'),('Go Back',lambda:[r2.destroy(),r0.destroy()],'BLUE')],0,0,'')
@@ -194,7 +199,7 @@ def update2(l,c,d):
     b=read()
     try:
         b[c][d]=b[c][d]
-        r2,r0=win()
+        r2,r0=win(1)
         f1,f2=fr(r2),fr(r2)
         e=[['New account name:',''],['Username:',''],['Password:','']]
         for i in range(len(e)):
@@ -223,26 +228,7 @@ if os.path.isdir('Sensitive')==False:
 with open(r'Sensitive/1.dat','ab+') as file1,open(r'Sensitive/2.dat','ab+') as file2:
     file1.seek(0,0)
     key=file1.read().decode('utf-8')
-r0=Tk()
-r0.title('PSIM')
-f=Frame(r0,bg='BLACK')
-f.pack(fill=BOTH,expand=1)
-c=Canvas(f,bg='BLACK')
-c.pack(side=LEFT,fill=BOTH,expand=1)
-s1,s2=ttk.Scrollbar(f,orient=VERTICAL,command=c.yview),ttk.Scrollbar(f,orient=HORIZONTAL,command=c.xview)
-s1.pack(side=RIGHT,fill=Y)
-c.configure(yscrollcommand=s1.set)
-s2.pack(side=BOTTOM,fill=X)
-c.configure(xscrollcommand=s1.set)
-c.bind('<Configure>',lambda e:c.configure(scrollregion=c.bbox('all')))
-def mw(event):
-    c.yview_scroll(-1*int((event.delta/120)),'units')
-c.bind_all('<MouseWheel>',mw)
-img=PhotoImage(file='Palm Print.png')
-Label(c,image=img).place(x=0,y=0)
-r1=Frame(c,bg='BLACK')
-c.create_window((0,0),window=r1,anchor='s')
-Label(r1,image=img).place(x=0,y=0)
+r1,r0=win(0)
 if key=='':
     f1,f2=fr(r1),fr(r1)
     Label(f1,text='No clearance key saved',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)

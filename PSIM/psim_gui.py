@@ -85,10 +85,10 @@ def starter(f1,f2,f3,r,r0,key):
         for i in [f1,f2,f3]:
             i.forget()
         f3,f4,f5=fr(r),fr(r),fr(r)
-        for i in [("RJK'S",0),('PSIM',1)]:
-            Label(f3,text=i[0],bg='BLACK',fg='WHITE',font=('Niagara Solid',40)).grid(row=i[1],column=2,sticky=W)
+        for i in [("RJK'S",0,28),('PSIM',1,30)]:
+            Label(f3,text=i[0],bg='BLACK',fg='WHITE',font=('Imprint MT Shadow',i[2])).grid(row=i[1],column=2,sticky=W)
         s1,s2=scroll(f4)
-        l=Listbox(f4,yscrollcommand=s1.set,xscrollcommand=s2.set,font=('Impact',12))
+        l=Listbox(f4,yscrollcommand=s1.set,xscrollcommand=s2.set,font=('Impact',12),width=12,height=9)
         for i in b:
             l.insert(END,i)
         l.pack(side=LEFT,fill=BOTH)
@@ -104,7 +104,7 @@ def view1(c,r):
         Label(f4,text=c,bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
         Label(f4,text='Select account',bg='BLACK',fg='WHITE',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
         s1,s2=scroll(f5)
-        l=Listbox(f5,yscrollcommand=s1.set,xscrollcommand=s2.set,font=('Impact',12))
+        l=Listbox(f5,yscrollcommand=s1.set,xscrollcommand=s2.set,font=('Impact',12),width=12,height=5)
         for i in b[c]:
             l.insert(END,i)
         l.pack(side=LEFT,fill=BOTH)

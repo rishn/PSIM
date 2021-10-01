@@ -11,4 +11,5 @@ All operations are conducted via ***GUI*** using Python *tkinter* module to make
 Requirements
 Python 3
 Python module tkinter
+All files from the PSIM folder
 ```

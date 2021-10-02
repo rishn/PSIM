@@ -7,13 +7,13 @@ import string
 def win(b):
     r=Tk() if b=='PSIM' else Toplevel()
     r.title(b)
-    r.config(bg='black')
+    r.wm_attributes('-transparentcolor','#3f1148')
     return r
 def scroll(f,b):
-    s1,s2=Scrollbar(f,bg='black',orient=VERTICAL),Scrollbar(f,bg='black',orient=HORIZONTAL)
+    s1,s2=Scrollbar(f,bg='#3f1148',orient=VERTICAL),Scrollbar(f,bg='#3f1148',orient=HORIZONTAL)
     s1.pack(side=RIGHT,fill=Y)
     s2.pack(side=BOTTOM,fill=X)
-    l=Listbox(f,yscrollcommand=s1.set,xscrollcommand=s2.set,bg='black',fg='white',font=('Impact',12),width=20,height=9)
+    l=Listbox(f,yscrollcommand=s1.set,xscrollcommand=s2.set,bg='#3f1148',fg='white',font=('Impact',12),width=20,height=9)
     for i in b:
         l.insert(END,i)
     l.pack(side=LEFT,fill=BOTH)
@@ -84,7 +84,7 @@ def starter(f1,f2,r,key):
     Label(f3,text=f'{3-a} attempt(s) left',bg='black',fg='white',font=('Georgia',12)).pack()
     b=read()
     if e.get()==key:
-        c,f1,f2,f3,f4,f5,f6=[i.forget() for i in [f1,f2,f3]],fr(r,0),fr(r,0),fr(r,0),fr(r,0),fr(r,0),fr(r,0)
+        c,f1,f2,f3,f4,f5,f6=[i.forget() for i in [f1,f2,f3]],fr(r,0),fr(r,2),fr(r,0),fr(r,0),fr(r,0),fr(r,0)
         for i in [("RJK'S",0,28,'Imprint MT Shadow'),('PSIM',1,30,'Imprint MT Shadow'),('Select sub-group',2,12,'Georgia')]:
             Label(f1,text=i[0],bg='black',fg='white',font=(i[3],i[2])).pack()
         l=scroll(f2,b)

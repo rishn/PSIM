@@ -7,13 +7,15 @@ import string
 def win(b):
     r=Tk() if b=='PSIM' else Toplevel()
     r.title(b)
+    r.config(bg='#3f1148')
     r.wm_attributes('-transparentcolor','#3f1148')
     return r
 def scroll(f,b):
-    s1,s2=Scrollbar(f,bg='#3f1148',orient=VERTICAL),Scrollbar(f,bg='#3f1148',orient=HORIZONTAL)
+    f.configure(bg='#3f1148')
+    s1,s2=Scrollbar(f,bg='#3f1148',orient=VERTICAL),Scrollbar(f,bg='black',orient=HORIZONTAL)
     s1.pack(side=RIGHT,fill=Y)
     s2.pack(side=BOTTOM,fill=X)
-    l=Listbox(f,yscrollcommand=s1.set,xscrollcommand=s2.set,bg='#3f1148',fg='white',font=('Impact',12),width=20,height=9)
+    l=Listbox(f,yscrollcommand=s1.set,xscrollcommand=s2.set,bg='black',fg='#5fbdbf',font=('Impact',12),width=20,height=9)
     for i in b:
         l.insert(END,i)
     l.pack(side=LEFT,fill=BOTH)
@@ -21,7 +23,7 @@ def scroll(f,b):
     s2.config(command=l.xview)
     return l
 def fr(r,b):
-    f=Frame(r,bg='black') if b==0 else Frame(r,bg='#c28f98')
+    f=Frame(r,bg='black') if b==0 else Frame(r,bg='#c28f98') if b==1 else Frame(r,bg='#3f1148')
     f.pack()
     return f
 def entry(f,s,i,c,b):
@@ -68,7 +70,10 @@ def generate2(n,r):
     global f3
     f3=fr(r,1)
     try:
-        p=''.join([random.choice(string.digits+string.ascii_letters+string.punctuation) for i in range(int(n))])
+        p=[random.choice(string.digits+string.ascii_letters+string.punctuation) for i in range(int(n)-3)]
+        for i in [(0,string.digits),(1,string.ascii_letters),(2,string.punctuation)]:
+            p.insert(random.randint(0,int(n)-3+i[0]),random.choice(i[1]))
+        p=''.join(p)
         Label(f3,text=p,bg='#c28f98',fg='white',font=('Georgia',12)).pack()
         Button(f3,text='Copy Text',width=10,bg='red',fg='white',activeforeground='red',command=lambda:copy(p,r),font=('Copperplate Gothic Light',10,'bold')).pack()
     except ValueError as e:
@@ -81,12 +86,12 @@ def starter(f1,f2,r,key):
     global f6
     a+=1
     f3=fr(r,0)
-    Label(f3,text=f'{3-a} attempt(s) left',bg='black',fg='white',font=('Georgia',12)).pack()
+    Label(f3,text=f'{3-a} attempt(s) left',bg='#3f1148',fg='#5fbdbf',font=('Georgia',12)).pack()
     b=read()
     if e.get()==key:
         c,f1,f2,f3,f4,f5,f6=[i.forget() for i in [f1,f2,f3]],fr(r,0),fr(r,2),fr(r,0),fr(r,0),fr(r,0),fr(r,0)
         for i in [("RJK'S",0,28,'Imprint MT Shadow'),('PSIM',1,30,'Imprint MT Shadow'),('Select sub-group',2,12,'Georgia')]:
-            Label(f1,text=i[0],bg='black',fg='white',font=(i[3],i[2])).pack()
+            Label(f1,text=i[0],bg='#3f1148',fg='yellow',font=(i[3],i[2])).pack()
         l=scroll(f2,b)
         button(f3,[('View',lambda:[f4.forget(),f5.forget(),f6.forget(),view1(l.get(ANCHOR),r1)],'red'),('Add',lambda:add1(l),'red'),('Delete',lambda:delete1(l,l.get(ANCHOR)),'red'),('Update',lambda:update1(l,l.get(ANCHOR)),'red'),('Exit',lambda:exitm(r1),'blue')],0,0,0)
     elif a==3:
@@ -98,8 +103,8 @@ def view1(c,r):
     b=read()
     try:
         b[c],f4,f5,f6=b[c],fr(r,0),fr(r,0),fr(r,0)
-        Label(f4,text=c,bg='black',fg='white',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
-        Label(f4,text='Select account',bg='black',fg='white',font=('Georgia',12)).grid(row=1,column=0,sticky=W)
+        for i in (c,'Select account'):
+            Label(f4,text=i,bg='#3f1148',fg='yellow',font=('Georgia',12)).pack()
         l=scroll(f5,b[c])
         button(f6,[('View',lambda:view2(c,l.get(ANCHOR)),'red'),('Add',lambda:add2(l,c),'red'),('Delete',lambda:delete2(l,c,l.get(ANCHOR)),'red'),('Update',lambda:update2(l,c,l.get(ANCHOR)),'red')],0,0,0)
     except KeyError as e:
@@ -220,7 +225,7 @@ def update2(l,c,d):
         print('',end='')
 def update3(l,b,c,d,r):
     global ft3
-    if d!=c and d!='' and d not in list(b.keys()):
+    if d!='' and d not in list(b.keys()):
         b[d]=b[c]
         l.insert(END,d)
         l.delete(l.get(0,END).index(c))
@@ -231,14 +236,15 @@ def update3(l,b,c,d,r):
     write(b,r'Sensitive/2.dat')
 def update4(l,b,c,d,e,f,g,r):
     global fl3
-    if e!=d and e!='' and e not in list(b[c].keys()):
+    if e!='' and (e==d or e not in list(b.keys())):
         b[c][e]=[f,g]
-        l.insert(END,e)
-        l.delete(l.get(0,END).index(d))
-        del b[c][d]
     else:
         fl3=fr(r,1)
         Label(fl3,text='Invalid account',bg='#c28f98',fg='white',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
+    if e!=d:
+        l.insert(END,e)
+        l.delete(l.get(0,END).index(d))
+        del b[c][d]
     write(b,r'Sensitive/2.dat')
 def exitm(r):
     r.destroy()
@@ -250,12 +256,12 @@ with open(r'Sensitive/1.dat','ab+') as file1,open(r'Sensitive/2.dat','ab+') as f
     key,r1=file1.read().decode('utf-8'),win('PSIM')
 img1=PhotoImage(file='Palm Print.png')
 Label(r1,image=img1).place(x=0,y=0)
-f1,f2,f3=fr(r1,0),fr(r1,0),fr(r1,0)
+f1,f2,f3=fr(r1,2),fr(r1,0),fr(r1,0)
 if key=='':
-    Label(f1,text='No clearance key saved',bg='black',fg='white',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
+    Label(f1,text='No clearance key saved',bg='#3f1148',fg='#5fbdbf',font=('Georgia',12)).grid(row=0,column=0,sticky=W)
     nkey,ckey=entry(f1,'New clearance key:',1,'*',0),entry(f1,'New clearance key:',2,'*',0)
     Button(f2,text='Submit',width=25,command=lambda:[f3.forget(),check(nkey.get(),ckey.get(),r1)],bg='blue',fg='white',activeforeground='blue',font=('Copperplate Gothic Light',10,'bold')).pack()
 else:
     a,e=0,entry(f1,'Clearance key:',0,'*',0)
     Button(f2,text='Submit',width=25,command=lambda:[f3.forget(),starter(f1,f2,r1,key)],bg='blue',fg='white',activeforeground='blue',font=('Copperplate Gothic Light',10,'bold')).pack()
-    Label(f3,text='3 attempts left',bg='black',fg='white',font=('Georgia',12)).pack()
+    Label(f3,text='3 attempts left',bg='#3f1148',fg='#5fbdbf',font=('Georgia',12)).pack()

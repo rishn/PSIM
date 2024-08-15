@@ -1,5 +1,5 @@
-# PSIM™
-## RJK'S Personal Sensitive Information Manager ™
+# PSIM
+## RJK'S Personal Sensitive Information Manager 
 
 A ***menu-driven program*** that operates on personal information stored in a pseudo-encrypted binary file. 
 Created using ***Python 3.8*** language.

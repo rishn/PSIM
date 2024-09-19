@@ -1,9 +1,17 @@
-# Password Manager Application
+# RJK'S Password Sensitive Information Manager
+<p align="center">
+  <img src="https://github.com/rishn/PSIM/blob/main/PSIM/Banner.png?raw=true" alt="Gameplay" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/rishn/PSIM/blob/main/PSIM/Palm Print.png?raw=true" alt="Gameplay" />
+</p>
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
+- [Demo](#demo)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -21,6 +29,10 @@ This application is a secure password manager built using Python's Tkinter libra
 - **Sub-Group Management**: Create and manage sub-groups for organizing accounts.
 - **Clipboard Functionality**: Copy generated passwords or account details to the clipboard.
 
+## Demo
+
+https://github.com/user-attachments/assets/ee0192eb-89da-4d71-84c8-f9e7005ac5df
+
 ## Requirements
 
 - Python 3.x
@@ -30,30 +42,27 @@ This application is a secure password manager built using Python's Tkinter libra
 ## Installation
 
 1. **Clone or Download**: Clone the repository or download the code to your local machine.
-
-  ```bash
-  git clone https://github.com/rishn/PSIM
-  ```
+     ```bash
+      git clone https://github.com/rishn/PSIM
+    ```
 
 2. **Install Dependencies**: Ensure Python 3.8 and Tkinter are installed. Tkinter usually comes with Python, so no additional installation is typically required.
 
 3. **Setup Directory Structure**: Ensure the `Sensitive` directory exists in the same location as your script. If not, the application will create it automatically.
+    ```bash
+    mkdir Sensitive
+    ```
 
-  ```bash
-  mkdir Sensitive
-  ```
+5. **Run the Application**: Execute the script to launch the application.
+   <br/>For Windows:
+    ```bash
+    python psim.py
+    ```
 
-4. **Run the Application**: Execute the script to launch the application.
-
-  For Windows:
-  ```bash
-  python psim.py
-  ```
-
-  For Linux/MacOS:
-  ```bash
-  python3 psim.py
-  ```
+    For Linux/MacOS:
+    ```bash
+    python3 psim.py
+    ```
 
 ## Usage
 
@@ -64,15 +73,15 @@ This application is a secure password manager built using Python's Tkinter libra
 ### Main Features
 
 - **Generate Secure Password**:
-- Navigate to "Secure Password Generator" to create strong passwords.
-- Specify the desired length and generate a password.
-- Option to copy the generated password to the clipboard.
+  - Navigate to "Secure Password Generator" to create strong passwords.
+  - Specify the desired length and generate a password.
+  - Option to copy the generated password to the clipboard.
 
 - **Manage Personal Information**:
-- **View**: View details of existing accounts and sub-groups.
-- **Add**: Add new sub-groups or accounts to your data.
-- **Delete**: Remove existing sub-groups or accounts.
-- **Update**: Modify details of existing accounts or sub-groups.
+  - **View**: View details of existing accounts and sub-groups.
+  - **Add**: Add new sub-groups or accounts to your data.
+  - **Delete**: Remove existing sub-groups or accounts.
+  - **Update**: Modify details of existing accounts or sub-groups.
 
 ### Navigating the GUI
 

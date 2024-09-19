@@ -32,7 +32,7 @@ This application is a secure password manager built using Python's Tkinter libra
 1. **Clone or Download**: Clone the repository or download the code to your local machine.
 
   ```bash
-  git clone <repository-url>
+  git clone https://github.com/rishn/PSIM
   ```
 
 2. **Install Dependencies**: Ensure Python 3.8 and Tkinter are installed. Tkinter usually comes with Python, so no additional installation is typically required.
